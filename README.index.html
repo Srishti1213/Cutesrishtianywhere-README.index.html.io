@@ -1,4 +1,111 @@
-# Cutesrishtianywhere
+                                                INDIRA GANDHI DELHI TECHNICAL UNIVERSITY FOR WOMEN 
+
+                                                               Summer Internship 
+                                                                Report on web VR
+                                                                 (Steamedu.com)
+A few months ago, I had the opportunity to try out several WebVR experiences for the first time,and I was blown away by the possibilities. Using the head set 
+my Firefox browser, I was able to play games, explore worlds, paint, create music and so much more. All through the open web. I was hooked.A short while later,
+I was introduced to A-Frame, a web framework for building virtual reality experiences. The “Hello World” demo is a mere 15 lines of code. This blew my mind.
+Building an experience in Virtual Reality seems like a task reserved for super developers, or that guy from Mr. Robot. After glancing through the AFrame 
+documentation, I realized that anyone with a little front-end experience can create something for Virtual Reality…even me – a marketing guy who likes to build 
+websites in his spare time.My team had an upcoming presentation to give. Normally we would create yet another slide deck. This time, however, I decided to give 
+A-Frame a shot, and use Virtual Reality to tell our story and demo our work.Within two days I was able to teach myself how to build this (slightly modified for 
+sharing purposes). You can view the GitHub repo here.The result was a presentation that was fun and unique. People were far more engaged in Virtual Reality than
+they would have been watching us flip through slides on a screen.
+This isn’t a “how-to get started with A-Frame” post (there are plenty of great resources for that). I did, however, find solutions for a few “gotchas” that 
+I’ll share below Walking through wall One of the first snags I ran into was that the camera would pass through objects and walls. After some research, 
+I came across a-frame-extras. It includes an add-on called “kinematic-body” that helped solve this issue for me.Control A-frame extras also has helpers for controls. 
+It gave me an easy way to implement controls for keyboard, mouse, touchscreen, etc
+Generating room
+It didn’t take me long to figure out how to create and position walls to create a room. I didn’t just want a room though. I wanted multiple rooms and hallways. 
+Manually creating them would take forever. During my research I came across this post, where the author created a maze using an array of numbers. This inspired me 
+to create generate my own map using a similar method:
+const map = {
+ "data": [
+ 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+ 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0,
+ 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+ 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0,
+ 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+ 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0,
+ 0, 4, 4, 4, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+ 4, 0, 0, 0, 4, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0,
+ 4, 0, 0, 0, 4, 4, 4, 1, 0, 8, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+ 4, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0,
+ 0, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0
+ ],
+ "height":19,
+ "width":19
+}
+0 = no walls
+1 – 4 = walls with various textures
+8 = user start position
+9 = log position to console
+This would allow me to try different layouts, start at different spots around the map, and quickly get coordinates for positioning items and rooms (you’ll see why 
+this is useful below). You can view the rest of the code here
+Duplicate room
+Once I created a room, I wanted to recreate a variation of this room at different locations around the map. This is where I learned to embrace the “ object. When 
+you use “ as a container, it allows entities inside the container to be positioned relative to that parent entity object. I found this post about relative positioning 
+to be helpful in understanding the concept. This allowed me to duplicate the code for a room, and simply provide new position coordinates for the parent entity.
+Conclusion 
+I have no doubt that there are better and more efficient ways to create something like this, but the fact that a novice like myself was able to build something in just a 
+couple of days speaks volumes to the power of A-Frame and WebVR. The A-Frame community also deserves a lot of credit. I found libraries, code examples, and blog 
+posts for almost every issue and question I had.Now is the perfect time to get started with WebVR and A-Frame, especially now that it’s supported for anyone using 
+the latest version of Firefox on Windows. Check out the website, join the community, and start building
+                                                                                                                             Team name – YODHA 
+                                                                                                                                 Member name
+                                                                                                                               • Jiya Sharma
+                                                                                                                               • Srishti Yadav
+                                                                                                                               • Vanshika
+🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚
+                                                            RESEARCH PAPER
+                                            ​​VR ANYWHERE DOOR: A PORTAL TO CALMMNESS​ 
+                                      ​Indira Gandhi Delhi Technical University for Women
+TEAM MEMBERS NAME: VANSHIKA (IT- SEMESTER 3) 
+JIYA SHARMA (MAE-2 SEMESTER 3)    
+SRISHTI YADAV (ECE SEMESTER 3) 
+
+​WORKING UNDER: 
+STEAMEDU
+         Abstract  
+
+The rapid advancement of virtual reality (VR) technologies has paved the way for immersive experiences within the metaverse. In this research paper, we present a novel project, "VR Anywhere Door," developed during a summer internship, that leverages the capabilities of A-Frame and Unity to create a seamless and immersive VR navigation experience. The project focuses on addressing the challenges of efficient movement and exploration within the metaverse by introducing a versatile and intuitive method for users to navigate between diverse virtual environments. Through the integration of A-Frame and Unity, we demonstrate the potential of combining web-based VR and game development technologies to enhance the metaverse experience’s within the metaverse. In this research paper, we present a novel project, "VR Anywhere Door," developed during a summer internship, that leverages the capabilities of A-Frame and Unity to create a seamless and immersive VR navigation experience. The project focuses on addressing the challenges of efficient movement and exploration within the metaverse by introducing a versatile and intuitive method for users to navigate between diverse virtual environments. Through the integration of A-Frame and Unity, we demonstrate the potential of combining web-based VR and game development technologies to enhance the metaverse experience. 
+
+Introduction 
+
+Metaverse Meaning | Hugdltyyuqegxm 
+
+ Virtual reality (VR) has transformed the way individuals interact with digital content, giving rise to the concept of the metaverse, a collective virtual shared space. One of the challenges within the metaverse is enabling efficient and intuitive navigation between diverse virtual environments. This paper introduces the "VR Anywhere Door" project, which aims to provide users with a seamless and immersive method to navigate across the metaverse using A-Frame and Unity technologies. 
+
+Related Work 
+
+ Previous research has explored various methods of VR navigation, including teleportation, flying, and walking. A-Frame, a web-based VR framework, and Unity, a popular game development engine, have both been extensively used to create immersive VR experiences. However, the integration of these technologies for metaverse navigation remains an underexplored area. 
+
+System Architecture 
+
+The VR Anywhere Door system is designed as a two-phase process. In the first phase, the user interacts with a web-based A-Frame environment where they select their desired destination using a virtual door interface. The second phase involves transitioning seamlessly from the A-Frame environment to a Unity-based VR scene representing the chosen destination. This transition is achieved through backend communication and the synchronized loading of the Unity scene. 
+
+Implementation 
+
+ The A-Frame component of the VR Anywhere Door project utilizes HTML and JavaScript to create a user-friendly environment where users can interact with virtual doors representing different destinations. The Unity component employs C# scripting to ensure a smooth transition between A-Frame and Unity environments while maintaining the user's position and orientation. 
+
+User Experience and Evaluation 
+
+User experience is a critical aspect of any VR application. During the internship, a user study was conducted to evaluate the effectiveness of the VR Anywhere Door system. Participants praised the seamless navigation experience and the intuitive door selection interface. Feedback was collected to further refine the project's design and interaction mechanisms. 
+
+Challenges and Future Directions 
+
+The project encountered challenges related to synchronization between A-Frame and Unity, maintaining consistent aesthetics, and optimizing performance. Future work could focus on expanding the system to support multi-user interactions, integrating additional input methods, and enhancing the realism of the transition between environments. 
+
+Project code (for reference) 
 <!DOCTYPE html>
 <html>
   <head>
@@ -12,38 +119,66 @@
 
         <!--link-->
           <a-assest>
-            <img id="sky" src="">
-            <img id="floor" src="https://th.bing.com/th/id/OIP.VThjezl0rjrEk4oSLT-K8QHaE8?pid=ImgDet&rs=1
-            ">
-            <img id="snow_wall_1" src="https://th.bing.com/th/id/OIP.-flTqkJ3tRQ0CvgkzfT0kQHaFz?pid=ImgDet&w=836&h=656&rs=1">
-            <img id="wall_2" src="https://cdn.pixabay.com/photo/2010/11/29/himalayas-409_960_720.jpg">
-            <img id ="base1" src="https://th.bing.com/th/id/R.a6a361887457015102daf96d2752e823?rik=lYMHkqrnqVsUtg&riu=http%3a%2f%2fwww.news1130.com%2fwp-content%2fblogs.dir%2fsites%2f9%2f2016%2f01%2f30%2fiStock_000013081040_Large-e1454191629185.jpg&ehk=iofmSR%2fviN0zV9QpTGMQmiRO0lEXJPxLxi1onWChdM8%3d&risl=&pid=ImgRaw&r=0">
-            <img id="wall_3" src="https://th.bing.com/th/id/R.73236a64be25cb9fae454d6e669b9a98?rik=Pm5rxHo%2bXFEo3A&riu=http%3a%2f%2fallpicts.in%2fwp-content%2fuploads%2f2016%2f05%2f10-Best-Nature-Images-HD-in-India-1-Munsiyari-in-Great-Himalayan-Mountain.jpg&ehk=yMk0RTCnY5wL1ZW01dzD7nfKVP6hF9Ux2oTWPDzCERU%3d&risl=&pid=ImgRaw&r=0">
-            <img id="wall_4" src="https://th.bing.com/th/id/R.7f657070025104a468456ada107aa7c1?rik=H579dbKIYD4LYw&riu=http%3a%2f%2fwallpapercave.com%2fwp%2fbjV4i7n.jpg&ehk=q8D3zhXCJ%2f3cejW6UPV2hdIJ%2fhyPGriZIqXawgW5Z%2bc%3d&risl=&pid=ImgRaw&r=0">
-            <img id="top" src="https://th.bing.com/th/id/R.ff887e7786516e91d92be52b0bf299ce?rik=whpLStk4ABd7wQ&riu=http%3a%2f%2fhdwpro.com%2fwp-content%2fuploads%2f2016%2f10%2fBlue-Sky-Image.jpg&ehk=FjI8nzTLqjeQw2cRjQs0kABFQIuFdOejI%2f5dZsab3Hk%3d&risl=&pid=ImgRaw&r=0">
             <img id="floor" src="https://th.bing.com/th/id/OIP.VThjezl0rjrEk4oSLT-K8QHaE8?pid=ImgDet&rs=1">
-             
+            <img id="snow_wall_1" src="https://th.bing.com/th/id/OIP.-flTqkJ3tRQ0CvgkzfT0kQHaFz?pid=ImgDet&w=836&h=656&rs=1">
+            <img id="snow_wall_2" src="https://cdn.pixabay.com/photo/2010/11/29/himalayas-409_960_720.jpg">
+            <img id ="snow_base1" src="https://th.bing.com/th/id/R.a6a361887457015102daf96d2752e823?rik=lYMHkqrnqVsUtg&riu=http%3a%2f%2fwww.news1130.com%2fwp-content%2fblogs.dir%2fsites%2f9%2f2016%2f01%2f30%2fiStock_000013081040_Large-e1454191629185.jpg&ehk=iofmSR%2fviN0zV9QpTGMQmiRO0lEXJPxLxi1onWChdM8%3d&risl=&pid=ImgRaw&r=0">
+            <img id="snow_wall_3" src="https://th.bing.com/th/id/R.73236a64be25cb9fae454d6e669b9a98?rik=Pm5rxHo%2bXFEo3A&riu=http%3a%2f%2fallpicts.in%2fwp-content%2fuploads%2f2016%2f05%2f10-Best-Nature-Images-HD-in-India-1-Munsiyari-in-Great-Himalayan-Mountain.jpg&ehk=yMk0RTCnY5wL1ZW01dzD7nfKVP6hF9Ux2oTWPDzCERU%3d&risl=&pid=ImgRaw&r=0">
+            <img id="snow_wall_4" src="https://th.bing.com/th/id/R.7f657070025104a468456ada107aa7c1?rik=H579dbKIYD4LYw&riu=http%3a%2f%2fwallpapercave.com%2fwp%2fbjV4i7n.jpg&ehk=q8D3zhXCJ%2f3cejW6UPV2hdIJ%2fhyPGriZIqXawgW5Z%2bc%3d&risl=&pid=ImgRaw&r=0">
+            <img id="snow_top" src="https://th.bing.com/th/id/R.ff887e7786516e91d92be52b0bf299ce?rik=whpLStk4ABd7wQ&riu=http%3a%2f%2fhdwpro.com%2fwp-content%2fuploads%2f2016%2f10%2fBlue-Sky-Image.jpg&ehk=FjI8nzTLqjeQw2cRjQs0kABFQIuFdOejI%2f5dZsab3Hk%3d&risl=&pid=ImgRaw&r=0">
+            <img id="snow_floor" src="https://th.bing.com/th/id/OIP.VThjezl0rjrEk4oSLT-K8QHaE8?pid=ImgDet&rs=1">
+            <img id="plain_wall" src="https://th.bing.com/th/id/OIP.rSe2WqSyocupFSXBQEv8SQHaE7?pid=ImgDet&w=640&h=426&rs=1">
+            <img id="plain_wall_2" src="https://th.bing.com/th/id/OIP.VCqUJZdAT-GHFR5BGGJGSwHaEJ?pid=ImgDet&rs=1">
+            <img id="plain_wall_3" src="https://th.bing.com/th/id/OIP.zM-TCEDhGC833c7s9Z6WoAHaE7?pid=ImgDet&rs=1">
+            <img id="plain_wall_4" src="https://media-cdn.tripadvisor.com/media/photo-s/0f/cf/94/75/madakaripura-waterfall.jpg">
+            <img id="plaintop" src="https://th.bing.com/th/id/OIP.KagLqHO521V2UeSotb-8YQHaEK?pid=ImgDet&w=980&h=551&rs=1">
+            <img id="plain_base_1" src="https://th.bing.com/th/id/OIP.DQ2BMgALAvlSo5TdvGZvBgHaNL?pid=ImgDet&w=750&h=1334&rs=1">
+            <img id="meditation portal" src="">
+            
         </a-assest>
        <!-- SUN /SKY -->
 <a-simple-sun-sky sun-position="-1 1 -1" light-color="#87cefa" dark-color="#00bfff" fog-color="#74d2fa"></a-simple-sun-sky>
 
-         <!-- wall 1 -->
+         <!-- snow wall 1 -->
          <a-box src="#snow_wall_1" width="10" height="5" depth="0.1"  position="0 2.59 -5"></a-box>
-         <!-- wall 2 -->
-         <a-box src="#wall_2" width="10" height="0.1" depth="5" rotation="90 180 0" position="0 2.56 5" ></a-box>
-   <!-- floor -->
-   <a-box scale="333 0.1 423" position="0 0 0 " 
-   src="#floor"></a-box>
-       <!-- base  -->
-       <a-box position="-0.05 0.20 -0.03" rotation="0 0 0" scale="6.66 0.36 9.60" src="#base1"geometry="width: 1.48"></a-box>
-<!--wall 3-->
-        <a-box  src="#wall_3" position="-4.97 2.50 0" scale="0.68 4.96 9.96"rotation="0 0 0" ></a-box>
-       <!--top-->
-        <a-box  width="10" height="0.1" depth="10"  position="0 4.99 0" rotation="180 0 0"src="#top"></a-box>
-        <!--wall 4-->
-        <a-box width="0.1" height="5" depth="10"  position="5 2.58 0 "src="#wall_4"></a-box>
-
+         <!--snow wall 2 -->
+         <a-box src="#snow_wall_2" width="10" height="0.1" depth="5" rotation="90 180 0" position="0 2.56 5" ></a-box>
+   <!--snow floor -->
+   <a-box scale="333 0.1 423" position="0 0 0 " src="#snow_floor"></a-box>
+       <!--snow  base  -->
+       <a-box position="-0.05 0.20 -0.03" rotation="0 0 0" scale="6.66 0.36 9.60" src="#snow_base1"geometry="width: 1.48"></a-box>
+   <!--snow wall 3-->
+        <a-box  src="#snow_wall_3" position="-4.97 2.50 0" scale="0.68 4.96 9.96"rotation="0 0 0" ></a-box>
+        <!--snow top-->
+        <a-box  width="10" height="0.1" depth="10"  position="0 4.99 0" rotation="180 0 0"src="#snow_top"></a-box>
+        <!--snow wall 4-->
+        <a-box width="0.1" height="5" depth="10"  position="5 2.58 0 "src="#snow_wall_4"></a-box>
+        <!--plain wall-->
+        <a-box width="0.0" height="5" depth="10"  position="7 2.58 0 "src="#plain_wall"></a-box>
+        <!--plain wall 2-->
+        <a-box src="#plain_wall_2" width="10" height="0.1" depth="5" rotation="90 180 0" position="11.97 2.56 5" ></a-box>
+        <!--plain wall 3-->
+        <a-box  src="#plain_wall_3" depth="1.00" height="1.00" width="0.00" position="16.94 2.55 0" scale="0.68 4.96 9.96"rotation="0 0 0" ></a-box>
+        <!--plain wall 4-->
+        <a-box src="#plain_wall_4" width="10" height="5" depth="0.1"  position="11.94 2.55 -5"></a-box>
+        <!--plain base  -->
+        <a-box geometry="depth: 1.04; height: 0.24; width: 1.4" position="11.96 0.07 0.05" rotation="0 0 0" scale="7.14 0.36 9.60" src="#plain_base_1"></a-box>
+        <!--plain top-->
+        <a-box  width="10" height="0.1" depth="10"  position="11.91 5.06 0.04" rotation="180 0 0"src="#plaintop"></a-box>
+        <a-circle src="#meditation_portal" width="10" height="5" depth="0.1"  position="0 2.59 -5"></a-circle>
     </a-assest>
 </body>
 </html
+Conclusion 
 
+ In this paper, we presented the VR Anywhere Door project, a result of a summer internship focused on combining A-Frame and Unity to enable seamless VR navigation within the metaverse. The project demonstrates the potential of integrating web-based VR and game development technologies to enhance the user experience within the metaverse. Through careful design, implementation, and user evaluation, the VR Anywhere Door system offers a compelling solution to the challenge of intuitive navigation in virtual environments. 
+
+Keywords 
+
+Metaverse, Virtual Reality, A-Frame, Unity, Seamless Navigation, Web-based VR, Game Development, User Experience. 
+
+Acknowledgments 
+
+The authors would like to acknowledge the support and guidance provided by their mentors during the summer internship. This project was made possible through their valuable insights and assistance. 
+
+ 
